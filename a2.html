@@ -1,0 +1,88 @@
+<html>
+<head>
+  <title>Assignment 2</title>
+
+  <style>
+    h1 {text-align: center; font-size: 35pt; color:Gold;}
+    h2 {text-align: center; font-size: 25pt;}
+    h3 {text-align: center; font-size: 25pt; color:CornSilk;}
+    p {text-align: center; font-size:15}
+    a {color:FireBrick;}
+    td {text-align: center;}
+    table {border-spacing:5em;}
+
+    .shadow {
+         text-shadow: 3px 3px 0px #db4e3b;
+    }
+
+
+  </style>
+</head>
+
+  <body style="background-color:DarkSeaGreen;">
+    <div class="shadow">
+      <br>
+      <h1> Assignment 2: Modify Images </h1>
+    </div>
+    <table width="100%">
+
+      <tr>
+        <td><h3>Question 1</h3>
+          <img src="imgs/a2/q1.png" style="width: 25vw">
+
+        </td>
+
+        <td><h3>Question 2</h3>
+          <img src="imgs/a2/q2.png" style="width: 25vw">
+          <p>This image worked best with a threshold of 89</p>
+
+        </td>
+      </tr>
+
+
+      <tr>
+
+        <td><h3>Question 3</h3>
+          <img src="imgs/a2/q3.png" style="width: 25vw">
+          <p>This image worked best with a threshold of 56. Although it does not clearly show the words <br>
+            anymore, a higher threshold would result in a creeping black background from right to left.</p>
+
+        </td>
+
+        <td><h3>Question 4</h3>
+          <img src="imgs/a2/q4.jpg" style="width: 25vw">
+          <p>The best threshold was 115. If a higher threshold is used, the writing could become <br>
+             a bit more visible, but dark spots would slowly appear as you slide it up.</p>
+
+        </td>
+      </tr>
+
+      <tr>
+      <td><h3>Question 5</h3>
+        <img src="imgs/a2/q5.png" style="width: 25vw">
+        <p>The black rectangle boundary becomes white and only the outer edge of it is left / detected. <br>
+        Then on the inside of the rectangle where the grey meets the black outer part another line / edge is found and left.<br>
+        Lastly, the lines forming the X turn into a border in the shape of the X with white now inside.</p>
+
+      </td>
+
+
+      <td><h3>Question 6</h3>
+        <img src="imgs/a2/q6.png" style="width: 25vw">
+        <p>The first thing I tried was the noise reduction filter in photoshop cs2 (Left).<br>
+          This one was not very effective as the most I was able to do was make the image more blurry. <br>
+          The method fails to remove the specks from around the screen.<br>
+          Next, I tried using gimps noise reduction filter (right). This one worked great and although it did make the image a bit blurry,<br>
+          it was effective in removing virtually all the spots across the image. Some parts of the image seemed to get blurry as well,<br>
+          but this was a result of the method blending the noise into the background.<br>
+        </p>
+
+      </td>
+
+    </tr>
+
+    </table>
+  </body>
+
+
+</html>
