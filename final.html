@@ -1,0 +1,224 @@
+<html>
+<head>
+
+  <title>Final Project</title>
+
+
+
+  <style>
+    h1 {text-align: center; font-size: 35pt; color:DarkKhaki;}
+    h2 {text-align: center; font-size: 25pt;}
+    h3 {text-align: center; font-size: 25pt; color:DarkGray;}
+    p {text-align: center; font-size:20}
+    a {color:GhostWhite;}
+    td {text-align: center;}
+    table {border-spacing:5em;}
+    video {height: 50%; width: 50%;}
+    tr {text-align: center;}
+    canvas {border: 1px solid GhostWhite; text-align:center; display: inline}
+
+
+    .shadow {
+         text-shadow: 3px 3px 0px GhostWhite;
+    }
+
+    .button {
+      background-color: azure;
+      border: none;
+      color: black;
+      padding: 8px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 13px;
+      margin: 4px 2px;
+      border-radius: 15px;
+      font-weight: bold;
+    }
+
+
+  </style>
+</head>
+
+  <body style="background-color:Black; onload="resizeCanvas();"">
+    <div class="shadow">
+      <br>
+      <h1> SOUND SPACE </h1>
+
+      <p align="center">
+        <button class="button" onclick="playAll()">START</button>
+      </p>
+    </div>
+    <br><br><br><br>
+    <table>
+      <tr>
+        <p align="center">
+        <canvas id="screen" width="700" height="400"></canvas>
+        </p>
+      </tr>
+      <tr>
+        <p align="center">
+          <button class="button" id="b1" onclick="updateButton('b1')">ELEC STRUM</button>
+          <button class="button" id="b2" onclick="updateButton('b2')">12 STR STRUM</button>
+          <button class="button" id="b3" onclick="updateButton('b3')">ELEC LEAD</button>
+          <button class="button" id="b4" onclick="updateButton('b4')">12 STR LEAD</button>
+        </p>
+      </tr>
+      <tr>
+        <p align="center">
+          <button class="button" id="b5" onclick="updateButton('b5')">KICK</button>
+          <button class="button" id="b6" onclick="updateButton('b6')">SNARE</button>
+          <button class="button" id="b7" onclick="updateButton('b7')">RIDE</button>
+          <button class="button" id="b8" onclick="updateButton('b8')">HATS</button>
+        </p>
+      </tr>
+    </table>
+
+
+  </body>
+
+
+</html>
+
+<script>
+
+  let buttonClicks = []
+  for(var i = 0; i < 12; i++) {
+    buttonClicks.push(false);
+  }
+
+  var p1 = new Audio('final/audio/electricstrum.mp3')
+  var p2 = new Audio('final/audio/chorusstrum.mp3')
+  var p3 = new Audio('final/audio/drivenlead.mp3')
+  var p4 = new Audio('final/audio/highstring.mp3')
+  var p5 = new Audio('final/audio/kick.mp3')
+  var p6 = new Audio('final/audio/snare.mp3')
+  var p7 = new Audio('final/audio/ride.mp3')
+  var p8 = new Audio('final/audio/hats.mp3')
+  var p9 = new Audio('final/audio/electricpiano.mp3')
+  var p10 = new Audio('final/audio/highsynth.mp3')
+  var p11 = new Audio('final/audio/bassguitar.mp3')
+  var p12 = new Audio('final/audio/synthbass.mp3')
+
+
+  console.log(buttonClicks)
+
+
+  function playAll() {
+    p1.volume = 0;
+    p2.volume = 0;
+    p3.volume = 0;
+    p4.volume = 0;
+    p5.volume = 0;
+    p6.volume = 0;
+    p7.volume = 0;
+    p8.volume = 0;
+    p9.volume = 0;
+    p10.volume = 0;
+    p11.volume = 0;
+    p12.volume = 0;
+    p1.play()
+    p2.play()
+    p3.play()
+    p4.play()
+    p5.play()
+    p6.play()
+    p7.play()
+    p8.play()
+    p9.play()
+    p10.play()
+    p11.play()
+    p12.play()
+
+  }
+
+  function updateButton(btn){
+      var property = document.getElementById(btn);
+      console.log(btn)
+      console.log(buttonClicks)
+      if (btn == "b1"){
+          if (buttonClicks[0]) {
+            property.style.backgroundColor = "#F0FFFF"
+            buttonClicks[0] = false
+            p1.volume = 0;
+          } else {
+            property.style.backgroundColor = "#BDB76B"
+            buttonClicks[0] = true
+            p1.volume = 1;
+          }
+      } else if (btn == "b2"){
+          if (buttonClicks[1]) {
+            property.style.backgroundColor = "#F0FFFF"
+            buttonClicks[1] = false
+            p2.volume = 0;
+          } else {
+            property.style.backgroundColor = "#BDB76B"
+            buttonClicks[1] = true
+            p2.volume = 1;
+          }
+      } else if (btn == "b3"){
+          if (buttonClicks[2]) {
+            property.style.backgroundColor = "#F0FFFF"
+            buttonClicks[2] = false
+            p3.volume = 0;
+          } else {
+            property.style.backgroundColor = "#BDB76B"
+            buttonClicks[2] = true
+            p3.volume = 1;
+          }
+      } else if (btn == "b4"){
+          if (buttonClicks[3]) {
+            property.style.backgroundColor = "#F0FFFF"
+            buttonClicks[3] = false
+            p4.volume = 0;
+          } else {
+            property.style.backgroundColor = "#BDB76B"
+            buttonClicks[3] = true
+            p4.volume = 1;
+          }
+      } else if (btn == "b5"){
+          if (buttonClicks[4]) {
+            property.style.backgroundColor = "#F0FFFF"
+            buttonClicks[4] = false
+            p5.volume = 0;
+          } else {
+            property.style.backgroundColor = "#BDB76B"
+            buttonClicks[4] = true
+            p5.volume = 1;
+          }
+      } else if (btn == "b6"){
+          if (buttonClicks[5]) {
+            property.style.backgroundColor = "#F0FFFF"
+            buttonClicks[5] = false
+            p6.volume = 0;
+          } else {
+            property.style.backgroundColor = "#BDB76B"
+            buttonClicks[5] = true
+            p6.volume = 1;
+          }
+      } else if (btn == "b7"){
+          if (buttonClicks[6]) {
+            property.style.backgroundColor = "#F0FFFF"
+            buttonClicks[6] = false
+            p7.volume = 0;
+          } else {
+            property.style.backgroundColor = "#BDB76B"
+            buttonClicks[6] = true
+            p7.volume = 1;
+          }
+      } else if (btn == "b8"){
+          if (buttonClicks[7]) {
+            property.style.backgroundColor = "#F0FFFF"
+            buttonClicks[7] = false
+            p8.volume = 0;
+          } else {
+            property.style.backgroundColor = "#BDB76B"
+            buttonClicks[7] = true
+            p8.volume = 1;
+          }
+      }
+
+
+  }
+
+</script>
