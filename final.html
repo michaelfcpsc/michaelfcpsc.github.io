@@ -49,7 +49,6 @@
         <button class="button" onclick="playAll()">START</button>
       </p>
     </div>
-    <br><br><br><br>
     <table>
       <tr>
         <p align="center">
@@ -94,6 +93,16 @@
 
 <script>
 
+
+var screen = document.getElementById("screen");
+var ctx = screen.getContext("2d");
+var ballRadius = 10;
+var x = screen.width/2;
+var y = screen.height-30;
+var dx = 2;
+var dy = -2;
+
+
   let buttonClicks = []
   for(var i = 0; i < 12; i++) {
     buttonClicks.push(false);
@@ -113,8 +122,32 @@
   var p12 = new Audio('final/audio/synthbass.mp3')
 
 
-  console.log(buttonClicks)
 
+
+  function drawBall() {
+      ctx.beginPath();
+      ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+      ctx.fillStyle = "#0095DD";
+      ctx.fill();
+      ctx.closePath();
+  }
+
+  function draw() {
+      ctx.clearRect(0, 0, screen.width, screen.height);
+      drawBall();
+
+      if(x + dx > screen.width-ballRadius || x + dx < ballRadius) {
+          dx = -dx;
+      }
+      if(y + dy > screen.height-ballRadius || y + dy < ballRadius) {
+          dy = -dy;
+      }
+
+      x += dx;
+      y += dy;
+  }
+
+  setInterval(draw, 10);
 
   function playAll() {
     p1.volume = 0;
@@ -129,12 +162,13 @@
     p10.volume = 0;
     p11.volume = 0;
     p12.volume = 0;
-    p1.play()
+
     p2.play()
     p3.play()
     p4.play()
     p5.play()
     p6.play()
+    p1.play()
     p7.play()
     p8.play()
     p9.play()
@@ -146,8 +180,7 @@
 
   function updateButton(btn){
       var property = document.getElementById(btn);
-      console.log(btn)
-      console.log(buttonClicks)
+
       if (btn == "b1"){
           if (buttonClicks[0]) {
             property.style.backgroundColor = "#F0FFFF"
@@ -231,7 +264,7 @@
       } else if (btn == "b9"){
           if (buttonClicks[8]) {
             property.style.backgroundColor = "#F0FFFF"
-            buttonClicks[7] = false
+            buttonClicks[8] = false
             p9.volume = 0;
           } else {
             property.style.backgroundColor = "#BDB76B"
