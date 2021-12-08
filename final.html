@@ -15,7 +15,7 @@
     table {border-spacing:5em;}
     video {height: 50%; width: 50%;}
     tr {text-align: center;}
-    canvas {border: 1px solid GhostWhite; text-align:center; display: inline}
+    canvas {border: 1px solid GhostWhite; text-align:center; display: inline, position: relative;}
 
 
     .shadow {
@@ -44,15 +44,14 @@
     <div class="shadow">
       <br>
       <h1> SOUND SPACE </h1>
-
       <p align="center">
-        <button class="button" onclick="playAll()">START</button>
+        <button class="button" id="startBtn" onclick="playAll()">START</button>
       </p>
     </div>
     <table>
       <tr>
         <p align="center">
-        <canvas id="screen" width="700" height="400"></canvas>
+            <canvas id="screen" width="700" height="400"></canvas>
         </p>
       </tr>
       <tr>
@@ -93,14 +92,57 @@
 
 <script>
 
+  var speed = 1;
 
-var screen = document.getElementById("screen");
-var ctx = screen.getContext("2d");
-var ballRadius = 10;
-var x = screen.width/2;
-var y = screen.height-30;
-var dx = 2;
-var dy = -2;
+  var color1 = 1;
+  var color1down = false;
+  var color1increment = 0.5;
+
+  var animationRunning = false;
+
+  function squareRotate() {
+    if (animationRunning) {
+      if (color1 <= 1) {
+        color1down = false;
+      } else if (color1 >= 254){
+        color1down = true;
+      }
+      if (color1down) {
+        color1 -= color1increment;
+      } else {
+        color1 += color1increment;
+      }
+      var color1string = color1.toString()
+
+      var screen = document.getElementById('screen');
+      var ctx = screen.getContext("2d");
+
+      // Fill Background color
+      //ctx.fillStyle='rgb(' + color1string + ', 209, 209)';
+      //ctx.fillRect(0,0,screen.width,screen.height);
+
+      ctx.beginPath();
+      ctx.stroke();
+      ctx.save();
+      ctx.translate(350,200);
+      var time = new Date();
+      ctx.rotate( ((2*Math.PI)/60) * time.getSeconds() + ((2*Math.PI)/60000) * time.getMilliseconds());
+      console.log(speed);
+      ctx.fillStyle='rgb(' + color1string + ', 209, 209)';
+      ctx.fillRect(0,0, 400, 5);
+
+      ctx.rotate( ((2*Math.PI)/60) * time.getSeconds() + ((2*Math.PI)/60000) * time.getMilliseconds() );
+      ctx.fillStyle = 'rgb(150, ' + color1string + ', 60)';
+      ctx.fillRect(-50,-50,100,100);
+      ctx.fillStyle = "#8B008B";
+
+
+
+      ctx.restore();
+    }
+  }
+
+
 
 
   let buttonClicks = []
@@ -124,32 +166,17 @@ var dy = -2;
 
 
 
-  function drawBall() {
-      ctx.beginPath();
-      ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-      ctx.fillStyle = "#0095DD";
-      ctx.fill();
-      ctx.closePath();
-  }
-
-  function draw() {
-      ctx.clearRect(0, 0, screen.width, screen.height);
-      drawBall();
-
-      if(x + dx > screen.width-ballRadius || x + dx < ballRadius) {
-          dx = -dx;
-      }
-      if(y + dy > screen.height-ballRadius || y + dy < ballRadius) {
-          dy = -dy;
-      }
-
-      x += dx;
-      y += dy;
-  }
-
-  setInterval(draw, 10);
 
   function playAll() {
+    var start = document.getElementById('startBtn');
+    start.style.backgroundColor = "#000000"
+
+    squareRotate();
+
+
+
+
+
     p1.volume = 0;
     p2.volume = 0;
     p3.volume = 0;
@@ -178,8 +205,15 @@ var dy = -2;
 
   }
 
+  var squareInterval;
+
   function updateButton(btn){
       var property = document.getElementById(btn);
+
+      var startInt = true;
+      if (buttonClicks.includes(true)) {
+        startInt = false;
+      }
 
       if (btn == "b1"){
           if (buttonClicks[0]) {
@@ -302,6 +336,44 @@ var dy = -2;
             p12.volume = 1;
           }
       }
+
+
+      var c = 0;
+      for (let i = 0; i < 12; i++) {
+        if (buttonClicks[i]) {
+          c++;
+        }
+      }
+
+      speed = 1 + c*1
+
+      if (c < 4) {
+        color1increment = 0.5;
+      } else if (c < 7) {
+        color1increment = 5;
+      } else {
+        color1increment = 10;
+      }
+
+      if (c == 1) {
+        if (startInt) {
+          animationRunning = true;
+          squareInterval = setInterval(squareRotate, 30);
+          console.log('setting interval dawg')
+        }
+      } else if (c == 0){
+        animationRunning = false;
+        clearInterval(squareInterval);
+        var screen = document.getElementById('screen');
+        var ctx = screen.getContext("2d");
+        ctx.clearRect(0, 0, screen.width,  screen.height);
+        console.log('thats cap bruh')
+      }
+
+
+
+
+
 
 
   }
