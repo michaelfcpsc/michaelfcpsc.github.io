@@ -15,11 +15,18 @@
     table {border-spacing:5em;}
     video {height: 50%; width: 50%;}
     tr {text-align: center;}
-    canvas {border: 1px solid GhostWhite; text-align:center; display: inline, position: relative;}
+    canvas {border: 1px solid GhostWhite;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 800px;
+}
 
 
     .shadow {
-         text-shadow: 3px 3px 0px GhostWhite;
+         text-shadow: 2px 2px 0px GhostWhite;
     }
 
     .button {
@@ -37,6 +44,7 @@
     }
 
 
+
   </style>
 </head>
 
@@ -50,9 +58,14 @@
     </div>
     <table>
       <tr>
-        <p align="center">
-            <canvas id="screen" width="700" height="400"></canvas>
-        </p>
+          <div class="stack">
+              <p align="center">
+                <canvas id="base" width="700" height="400" style="z-index:0;"></canvas>
+                <canvas id="bg" width="700" height="400" style="margin-top:-459; z-index:1;"></canvas>
+                <canvas id="screen" width="700" height="400" style="margin-top:-459; z-index:2;"></canvas>
+                <canvas id="rain" width="700" height="400" style="margin-top:-459; z-index:3;"></canvas>
+              </p>
+          </div>
       </tr>
       <tr>
         <p align="center">
@@ -94,11 +107,45 @@
 
   var speed = 1;
 
-  var color1 = 1;
+  var color1 = 107;
   var color1down = false;
   var color1increment = 0.5;
-
   var animationRunning = false;
+  var moreThanTwo = false;
+  var fractalAllowed = true;
+
+  var sDone = true;
+  var l1;
+  var w10;
+  var l2;
+  var w2;
+
+
+  var rval1 = Math.floor(Math.random() * 255);
+  var gval1 = Math.floor(Math.random() * 255);
+  var bval1 = Math.floor(Math.random() * 255);
+
+  var rval2 = Math.floor(Math.random() * 255);
+  var gval2 = Math.floor(Math.random() * 255);
+  var bval2 = Math.floor(Math.random() * 255);
+
+  var rval3 = Math.floor(Math.random() * 255);
+  var gval3 = Math.floor(Math.random() * 255);
+  var bval3 = Math.floor(Math.random() * 255);
+
+  var screen = document.getElementById('screen');
+  var bg = document.getElementById('bg');
+  var base = document.getElementById('base');
+  var rain = document.getElementById('rain');
+
+  var ctxs = screen.getContext("2d");
+  var ctxb = bg.getContext("2d");
+  var ctxbase = base.getContext("2d");
+  var ctxr = rain.getContext("2d");
+
+  var dx;
+  var dy;
+  var growCutoff;
 
   function squareRotate() {
     if (animationRunning) {
@@ -114,31 +161,86 @@
       }
       var color1string = color1.toString()
 
-      var screen = document.getElementById('screen');
-      var ctx = screen.getContext("2d");
 
       // Fill Background color
-      //ctx.fillStyle='rgb(' + color1string + ', 209, 209)';
-      //ctx.fillRect(0,0,screen.width,screen.height);
+      ctxbase.fillStyle='rgb(0, 0, 0)';
+      ctxbase.fillRect(0,0,base.width,base.height);
 
-      ctx.beginPath();
-      ctx.stroke();
-      ctx.save();
-      ctx.translate(350,200);
+
+
+      ctxb.beginPath();
+      ctxb.stroke();
+      ctxb.save();
+      ctxb.translate(350,200);
       var time = new Date();
-      ctx.rotate( ((2*Math.PI)/60) * time.getSeconds() + ((2*Math.PI)/60000) * time.getMilliseconds());
-      console.log(speed);
-      ctx.fillStyle='rgb(' + color1string + ', 209, 209)';
-      ctx.fillRect(0,0, 400, 5);
+      var rot = ((2*Math.PI)/60) * time.getSeconds() + ((2*Math.PI)/60000) * time.getMilliseconds();
+      ctxb.rotate(rot);
+      var color2string = (color1/1.3).toString();
+      ctxb.fillStyle='rgb(' + rval1.toString() + ', ' + color2string + ', ' + bval1.toString() + ')';
+      for (let i = 1; i < speed + 4; i++) {
+        ctxb.rotate(rot + (45*i))
+        ctxb.fillRect(0,0, 400, 2);
+      }
 
-      ctx.rotate( ((2*Math.PI)/60) * time.getSeconds() + ((2*Math.PI)/60000) * time.getMilliseconds() );
-      ctx.fillStyle = 'rgb(150, ' + color1string + ', 60)';
-      ctx.fillRect(-50,-50,100,100);
-      ctx.fillStyle = "#8B008B";
+      if (buttonClicks[11]) {
+        var tx = Math.floor(Math.random() * 800);
+        var yx = Math.floor(Math.random() * 500);
+        //ctxs.clearRect(0,0,screen.width, screen.height);
+        ctxs.beginPath();
+        ctxs.stroke();
+        ctxs.save();
+        ctxs.translate(tx, yx);
+        ctxs.rotate(-(rot));
+        ctxs.fillStyle = 'rgba( ' + rval2.toString() + ', ' + gval2.toString() + ', ' + color1string + ', .4)';
+        ctxs.fillRect(-35,-35,50,50);
+      }
+
+
+      if (moreThanTwo) {
+        if (sDone) {
+          dx = Math.floor(Math.random() * 700);
+          dy = Math.floor(Math.random() * 400);
+          l1 = 45;
+          w1 = 45;
+          l2 = 5;
+          w2 = 5;
+          sDone = false;
+          console.log('poggers');
+        }
+
+        ctxr.fillStyle = 'rgba( ' + rval3.toString() + ', ' + gval3.toString() + ', ' + color1string + ', .1)';
+        ctxr.beginPath();
+        ctxr.stroke();
+        ctxr.save();
+        ctxr.translate(dx, dy);
+        ctxr.fillRect(0, 0, l1, w1);
+        ctxr.clearRect(20, 20, l2, w2);
+        dx-=0.5;
+        dy-=0.5;
+        l1+=1.2;
+        w1+=1.2;
+        l2+=1.2;
+        w2+=1.2;
 
 
 
-      ctx.restore();
+
+
+        if (l1 > growCutoff) {
+          sDone = true;
+        }
+
+
+
+
+        ctxr.restore();
+      }
+
+
+
+      ctxs.restore();
+      ctxb.restore();
+      ctxbase.restore();
     }
   }
 
@@ -338,6 +440,7 @@
       }
 
 
+
       var c = 0;
       for (let i = 0; i < 12; i++) {
         if (buttonClicks[i]) {
@@ -345,29 +448,48 @@
         }
       }
 
+      if (c >= 3) {
+        moreThanTwo = true;
+      } else {
+        moreThanTwo = false;
+        ctxr.clearRect(0, 0, screen.width,  screen.height);
+      }
+
+      if (!buttonClicks[11]) {
+        ctxs.clearRect(0, 0, screen.width,  screen.height);
+      }
+
       speed = 1 + c*1
 
       if (c < 4) {
         color1increment = 0.5;
       } else if (c < 7) {
-        color1increment = 5;
+        color1increment = 2;
       } else {
-        color1increment = 10;
+        color1increment = 4;
+      }
+
+
+      if (c < 4) {
+        growCutoff = 1000;
+      } else if (c < 6) {
+        growCutoff = 400;
+      } else if (c < 8) {
+        growCutoff = 200;
       }
 
       if (c == 1) {
         if (startInt) {
           animationRunning = true;
-          squareInterval = setInterval(squareRotate, 30);
-          console.log('setting interval dawg')
+          squareInterval = setInterval(squareRotate, 5);
         }
       } else if (c == 0){
         animationRunning = false;
         clearInterval(squareInterval);
-        var screen = document.getElementById('screen');
-        var ctx = screen.getContext("2d");
-        ctx.clearRect(0, 0, screen.width,  screen.height);
-        console.log('thats cap bruh')
+        ctxs.clearRect(0, 0, screen.width,  screen.height);
+        ctxb.clearRect(0, 0, screen.width,  screen.height);
+        ctxbase.clearRect(0, 0, screen.width,  screen.height);
+        ctxr.clearRect(0, 0, screen.width,  screen.height);
       }
 
 
