@@ -13,12 +13,18 @@ body {
 
 h1 {
     color: #19091A;
-    font-size: 1.7em;
+    font-size: 3em;
 }
 
 h2 {
     color: white;
     text-align: center;
+}
+
+h3 {
+    text-align: center;
+    font-size: 3em;
+
 }
 
 ul {
@@ -29,7 +35,14 @@ ul {
 }
 
 
-li {
+ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+ul li {
     float: right;
 }
 
@@ -48,7 +61,23 @@ li {
             border-radius: 15px;
         }
 
+ol li a {
+    text-align: center;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%
+}
 
+
+.class-list {
+    display: block;
+    color: #19091A;
+    border-radius: 15px;
+    text-align: center;
+    padding: 20px 50px;
+    text-decoration: none;
+}
 
 .current {
     background-color: #19091ACC;
@@ -84,7 +113,7 @@ li {
 
 .content {
     position: relative;
-    height: 65vh;
+    height: 75%;
     width: 90%;
     max-width: 1920px;
     min-width: 916px;
@@ -92,15 +121,46 @@ li {
     margin-left: auto;
     margin-right: auto;
     background-color: #FEFFF899;
+    border-radius: 15px;
 }
 
 
+.main-table {
+    table-layout: fixed;
+    width: 100%;
+}
 
 
+.medium-cell {
+    width: 50%;
+    display: block;
+    margin-left: 20%;
+    margin-right: auto;
+    margin-top: 10%;
+}
 
+.large-cell {
+    width: 90%;
+    display: block;
+    margin-left: 8%;
+    margin-right: auto;
+    margin-top: 10%;
+}
 
+.border-cell {
+    width: 50%;
+    display: block;
+    margin-left: 20%;
+    margin-right: auto;
+    margin-top: 10%;
+    border: #19091ACC solid 5px;
+    border-radius: 10px;
+}
 
-
+.simple-border {
+    border: #19091ACC solid 5px;
+    border-radius: 10px;
+}
 
 
 
@@ -108,7 +168,7 @@ li {
     position: fixed;
     left: 0;
     bottom: 0;
-    height: 20vh;
+    height: 10vh;
     width: 100%;
     background-color: #070203B3;
 }
