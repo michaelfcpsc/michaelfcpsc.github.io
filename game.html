@@ -1,0 +1,57 @@
+<html>
+<head>
+    <title>Dots + Boxes</title>
+    <link rel="stylesheet" href="gamestyle.css">
+</head>
+
+<body onload="drawCanvas()">
+
+    <div class="menu-bar">
+        <table class="menu-table">
+            <tr>
+                <td>
+                    <h1>D O T S + B O X E S</h1>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="player-bar">
+        <table class="player-table">
+            <tr>
+                <td><p id="p1">P1 [0]</p></td>
+                <td><p id="p2">P2 [0]</p></td>
+                <td><p id="p3">P3 [0]</p></td>
+            </tr>
+        </table>
+
+    </div>
+
+
+    <div class="content">
+
+
+        <canvas id="canvas" class="content-canvas" width="400" height="400"></canvas>
+
+
+    </div>
+
+    <div class="function-bar">
+        <table class="function-table">
+            <tr>
+                <td><button onclick="restartGame()">RESTART</button></td>
+                <td><button onclick="menuRedirect()">MENU</button></td>
+            </tr>
+        </table>
+
+    </div>
+
+
+
+
+</body>
+
+</html>
+
+<script src="game.js"></script>
